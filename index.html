@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Base64 codec</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-  </head>
-  <body>
-      <h1>Base64</h1>
-      <textarea id="input" name="input" rows="30" cols="200"></textarea>
-      <div class="buttons-container">
-          <button type="button" id="encode">Encode</button>
-          <button type="button" id="decode">Decode</button>
-      </div>
-      <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
-      <script src="./bootstrap.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dev Tools</title>
+        <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    </head>
+    <body class="bg-gray-100">
+        <header class="bg-white">
+            <nav class="mx-auto container">
+            <a href="/">
+                <h1 class="text-2xl">
+                    <img class="inline" src="./static/logo.png">
+                    <span class="font-medium text-slate-500 font-sans">Dev Tools</span>
+                </h1>
+            </a>
+            </nav>
+        </header>
+        <main class="mx-auto container px-100 pt-5">
+            <textarea class="border border-slate-300" id="input" name="input" rows="20" cols="100"></textarea>
+            <div>
+                <button type="button" class="btn-black" id="encode_base64">Encode base64</button>
+                <button type="button" class="btn-black" id="decode_base64">Decode base64</button>
+                <button type="button" class="btn-blue" id="encode_url">Encode URL</button>
+                <button type="button" class="btn-blue" id="decode_url">Decode URL</button>
+            </div>
+        </main>
+        <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+        <script src="./bootstrap.js"></script>
   </body>
 </html>
