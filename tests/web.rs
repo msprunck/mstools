@@ -18,3 +18,12 @@ fn test_encode_decode_base64() {
     assert_eq!(&input, &decoded);
     assert_eq!(&encoded, String::from("MTIzNA=="));
 }
+
+#[wasm_bindgen_test]
+fn test_encode_decode_base64() {
+    let input = "http://www.example.com";
+    let encoded = encode_url(&input);
+    let decoded = decode_url(&encoded);
+    assert_eq!(&input, &decoded);
+    assert_eq!(&encoded, String::from("http%3A%2F%2Fwww.example.com"));
+}
