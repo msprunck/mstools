@@ -1,6 +1,6 @@
 # mstools
 
-[License Badge](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)
+![License Badge](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)
 ![GitHub Workflow Status](https://github.com/msprunck/mstools/workflows/tests/badge.svg)
 
 A place where I can experiment [Rust](https://www.rust-lang.org) and [WebAssembly](https://webassembly.org) by developing development tools that I use on a daily basis.
