@@ -6,7 +6,7 @@
     "build": "npm run clean:build && webpack --config webpack.config.js --mode production",
     "clean": "npm run clean:build",
     "clean:build": "rimraf dist",
-    "deploy": "npm run build && touch dist/.nojekyll && gh-pages --dotfiles=true --dist dist/",
+    "deploy": "npm run build && touch dist/.nojekyll && echo 'mstools.appspot.fr' > dist/CNAME && gh-pages --dotfiles=true --dist dist/",
     "start": "webpack serve --mode development"
   },
   "keywords": [
