@@ -1,6 +1,7 @@
 import * as mstools from "wasm-mstools";
 
 const inputTextArea = document.getElementById("input");
+const errorText = document.getElementById("error");
 
 const buttons_mapping = {
   encode_base64: () => {
@@ -15,11 +16,28 @@ const buttons_mapping = {
   decode_url: () => {
     inputTextArea.value = mstools.decode_url(inputTextArea.value);
   },
+  decode_jwt: () => {
+    inputTextArea.value = mstools.decode_jwt(inputTextArea.value);
+  },
+};
+
+const show_error = (message) => {
+  errorText.hidden = false;
+  errorText.textContent = message;
+};
+
+const hide_error = () => {
+  errorText.hidden = true;
 };
 
 for (const [button_id, fn] of Object.entries(buttons_mapping)) {
   let button = document.getElementById(button_id);
   button.addEventListener("click", (event) => {
-    fn();
+    try {
+      hide_error();
+      fn();
+    } catch (error) {
+      show_error(error.message);
+    }
   });
 }
