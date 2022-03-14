@@ -5,6 +5,7 @@
 use wasm_bindgen_test::*;
 use wasm_bindgen::*;
 use mstools::*;
+use regex::Regex;
 use serde_json::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
@@ -36,4 +37,19 @@ fn test_decode_jwt() {
     let expected_jwt_string = serde_json::to_string_pretty(&expected_jwt).unwrap();
     let decoded_jwt_string = decode_jwt(&jwt).map_err(|e| JsValue::from(e)).unwrap();
     assert_eq!(expected_jwt_string, decoded_jwt_string);
+}
+
+#[wasm_bindgen_test]
+fn test_format_json() {
+    let unformatted_json_string = "{\"firstname\": \"John\", \"lastname\": \"Doe\"}";
+    let formatted_json_string = String::from("{\n  \"firstname\": \"John\",\n  \"lastname\": \"Doe\"\n}");
+    let result = format_json(unformatted_json_string).map_err(|e| JsValue::from(e));
+    assert_eq!(Ok(formatted_json_string), result);
+}
+
+#[wasm_bindgen_test]
+fn test_gen_uuid() {
+    let uuid = gen_uuid();
+    let re = Regex::new(r"^(?i)[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$").unwrap();
+    assert_eq!(true, re.is_match(&uuid));
 }

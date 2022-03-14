@@ -4,6 +4,7 @@ use urlencoding;
 use std::str;
 use serde_json;
 use std::string::FromUtf8Error;
+use uuid::Uuid;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -72,4 +73,16 @@ fn parse_jwt(s: &str) -> Result<[serde_json::Value; 2], Error> {
 pub fn decode_jwt(s: &str) -> Result<String, JsError> {
     let jwt = parse_jwt(s)?;
     Ok(serde_json::to_string_pretty(&jwt).unwrap())
+}
+
+#[wasm_bindgen]
+pub fn format_json(s: &str) -> Result<String, JsError> {
+    let parsed_json = serde_json::from_str::<serde_json::Value>(s)?;
+    Ok(serde_json::to_string_pretty(&parsed_json).unwrap())
+}
+
+#[wasm_bindgen]
+pub fn gen_uuid() -> String {
+    let uuid = Uuid::new_v4();
+    uuid.to_hyphenated().to_string()
 }

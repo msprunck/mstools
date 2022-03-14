@@ -13,3 +13,11 @@
 .btn-fuchsia {
     @apply bg-fuchsia-500 hover:bg-fuchsia-700 text-white font-bold py-2 px-4 rounded;
 }
+
+.btn-emerald {
+    @apply bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded;
+}
+
+.btn-rose {
+    @apply bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded;
+}

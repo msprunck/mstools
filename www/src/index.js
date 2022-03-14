@@ -19,6 +19,12 @@ const buttons_mapping = {
   decode_jwt: () => {
     inputTextArea.value = mstools.decode_jwt(inputTextArea.value);
   },
+  format_json: () => {
+    inputTextArea.value = mstools.format_json(inputTextArea.value);
+  },
+  gen_uuid: () => {
+    inputTextArea.value = mstools.gen_uuid();
+  },
 };
 
 const show_error = (message) => {
