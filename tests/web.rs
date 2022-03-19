@@ -53,3 +53,13 @@ fn test_gen_uuid() {
     let re = Regex::new(r"^(?i)[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$").unwrap();
     assert_eq!(true, re.is_match(&uuid));
 }
+
+#[wasm_bindgen_test]
+fn test_edn_to_json() {
+    let json = String::from(
+        "{\"firstName\": null, \"lastName\": \"Sprunck\"}"
+    );
+    let edn = "{:firstName: nil, :lastName \"Sprunck\"}";
+    let result = edn_to_json(edn).map_err(|e| JsValue::from(e));
+    assert_eq!(Ok(json), result);
+}
