@@ -5,6 +5,8 @@ use std::str;
 use serde_json;
 use std::string::FromUtf8Error;
 use uuid::Uuid;
+use edn_rs;
+use std::str::FromStr;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -24,7 +26,10 @@ enum Error {
     FromUtf8Error(#[from] FromUtf8Error),
 
     #[error("Invalid token")]
-    InvalidToken
+    InvalidToken,
+
+    #[error(transparent)]
+    EdnError(#[from] edn_rs::EdnError)
 }
 
 #[wasm_bindgen]
@@ -86,3 +91,16 @@ pub fn gen_uuid() -> String {
     let uuid = Uuid::new_v4();
     uuid.to_hyphenated().to_string()
 }
+
+#[wasm_bindgen]
+pub fn json_to_edn(s: &str) -> String {
+    edn_rs::json_to_edn(String::from(s))
+}
+
+#[wasm_bindgen]
+pub fn edn_to_json(s: &str) -> Result<String, JsError> {
+    let parsed_edn: edn_rs::Edn = edn_rs::Edn::from_str(s)?;
+    Ok(parsed_edn.to_json())
+}
+
+

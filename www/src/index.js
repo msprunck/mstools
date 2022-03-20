@@ -25,6 +25,12 @@ const buttons_mapping = {
   gen_uuid: () => {
     inputTextArea.value = mstools.gen_uuid();
   },
+  json_to_edn: () => {
+    inputTextArea.value = mstools.json_to_edn(inputTextArea.value);
+  },
+  edn_to_json: () => {
+    inputTextArea.value = mstools.edn_to_json(inputTextArea.value);
+  },
 };
 
 const show_error = (message) => {
