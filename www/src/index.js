@@ -31,6 +31,14 @@ const buttons_mapping = {
   edn_to_json: () => {
     inputTextArea.value = mstools.edn_to_json(inputTextArea.value);
   },
+  clear_text: () => {
+    inputTextArea.value = "";
+    inputTextArea.focus();
+  },
+  copy_to_clipboard: () => {
+    navigator.clipboard.writeText(inputTextArea.value);
+    inputTextArea.select();
+  },
 };
 
 const show_error = (message) => {

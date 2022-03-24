@@ -25,3 +25,8 @@
 .btn-amber {
     @apply bg-amber-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded;
 }
+
+.btn-action {
+    @apply px-4 py-2 text-gray-500 transition-colors duration-200 transform border rounded-lg hover:bg-gray-300 dark:text-gray-200 dark:border-gray-200 focus:outline-none focus:border-teal-500 focus:ring focus:ring-opacity-40;
+    focus:ring-primary;
+}
