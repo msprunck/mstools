@@ -8,12 +8,6 @@ use uuid::Uuid;
 use edn_rs;
 use std::str::FromStr;
 
-// When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
-// allocator.
-#[cfg(feature = "wee_alloc")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
 #[derive(Debug, thiserror::Error)]
 enum Error {
     #[error(transparent)]
@@ -89,7 +83,7 @@ pub fn format_json(s: &str) -> Result<String, JsError> {
 #[wasm_bindgen]
 pub fn gen_uuid() -> String {
     let uuid = Uuid::new_v4();
-    uuid.to_hyphenated().to_string()
+    uuid.hyphenated().to_string()
 }
 
 #[wasm_bindgen]
