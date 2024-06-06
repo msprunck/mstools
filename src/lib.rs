@@ -1,12 +1,10 @@
 use wasm_bindgen::prelude::*;
-use base64;
-use urlencoding;
-use std::str;
-use serde_json;
+use base64::engine::general_purpose::{STANDARD, URL_SAFE_NO_PAD};
+use base64::Engine as _;
 use std::string::FromUtf8Error;
 use uuid::Uuid;
-use edn_rs;
 use std::str::FromStr;
+use edn_rs::{Edn, EdnError};
 
 #[derive(Debug, thiserror::Error)]
 enum Error {
@@ -23,17 +21,17 @@ enum Error {
     InvalidToken,
 
     #[error(transparent)]
-    EdnError(#[from] edn_rs::EdnError)
+    EdnError(#[from] EdnError)
 }
 
 #[wasm_bindgen]
 pub fn encode_base64(s: &str) -> String {
-    base64::encode(s)
+    STANDARD.encode(s)
 }
 
 #[wasm_bindgen]
 pub fn decode_base64(s: &str) -> Result<String, JsError> {
-    let decoded = base64::decode(s)?;
+    let decoded = STANDARD.decode(s)?;
     let converted = String::from_utf8(decoded)?;
     Ok(converted.to_string())
 }
@@ -56,8 +54,8 @@ fn parse_jwt(s: &str) -> Result<[serde_json::Value; 2], Error> {
         _ => return Err(Error::InvalidToken)
     };
 
-    let decoded_header = base64::decode_config(header, base64::URL_SAFE_NO_PAD)?;
-    let decoded_payload = base64::decode_config(payload, base64::URL_SAFE_NO_PAD)?;
+    let decoded_header = URL_SAFE_NO_PAD.decode(header)?;
+    let decoded_payload = URL_SAFE_NO_PAD.decode(payload)?;
 
     let converted_header = String::from_utf8(decoded_header)?;
     let converted_payload = String::from_utf8(decoded_payload)?;
@@ -93,8 +91,6 @@ pub fn json_to_edn(s: &str) -> String {
 
 #[wasm_bindgen]
 pub fn edn_to_json(s: &str) -> Result<String, JsError> {
-    let parsed_edn: edn_rs::Edn = edn_rs::Edn::from_str(s)?;
+    let parsed_edn: Edn = Edn::from_str(s)?;
     Ok(parsed_edn.to_json())
 }
-
-
